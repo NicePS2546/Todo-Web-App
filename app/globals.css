@@ -2,26 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: fira sans, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.main-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  
+}
+
+.main-children{
+  min-height: 100vh;
+}
+.container{
+  position: relative;
+  background-color: aqua;
+  width: 500px;
+  height: 450px;
+  border: 2px solid black;
+  border-radius: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-bar{
+    border: 2px solid;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+    width: 350px;
   }
+.box-heigh{
+  height: 150px;
+  
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.title-container{
+  padding-bottom: 12px;
+  display: inline-block;
+}
+
+.description-container{
+  padding-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.input-btn{
+  display: flex;
+  position: absolute;
+  color: aqua;
+  left: 45%;
+  cursor: pointer;
+  background-color: rgb(87, 83, 83);
+  border: 2px solid black;
+  box-shadow: 10px;
+  border-radius: 10px;
+}
+
+.label-title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.btn-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.btn{
+  border: solid 1px black;
+  background-color: #ccc;
+  border-radius: 10px;
+  width: 60px;
+}
+.score-label{
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
 }

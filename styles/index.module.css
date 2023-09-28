@@ -1,0 +1,31 @@
+
+.input-bar{
+    border: 2px solid;
+    
+  }
+.container{
+    padding: 15px;
+    
+    
+  }
+.title-container{
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 12px;
+    
+  }
+  
+.description-container{
+    padding-bottom: 12px;
+    
+  }
+  
+.input-btn{
+    position: absolute;
+    color: aqua;
+    left: 90px;
+    cursor: pointer;
+    background-color: rgb(87, 83, 83);
+    border: 2px solid black;
+    box-shadow: 10px;
+  }
