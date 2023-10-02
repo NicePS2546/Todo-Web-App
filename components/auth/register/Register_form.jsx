@@ -8,33 +8,21 @@ export const metadata = {
   title: 'Register',
   description: 'Create by NICE',
 }
-const preform = {
+const userpreform = {
   username: "",
   email:"",
   password:""
 }
 export default function() {
   //use to set value to variables
-  const [userData,setUserdata] = useState(preform);
-  // const [name,setName] = useState("");
-  // const [email,setEmail] = useState("");
-  // const [password,setPassword] = useState("");
+  const [userData,setUserdata] = useState(userpreform );
   const [riseError,setError] = useState("");
   const router = useRouter();
   const handleChange = (e)=> {
     const { id , value } = e.target;
     setUserdata(( prevData )=> ({...prevData, [id]: value}))
   }
-  // const handle_username = (e) =>{
-  //   setName(e.target.value)
-  // };
-  // const handle_password = (e) =>{
-  //   setPassword(e.target.value)
-  // };
-  // const handle_email = (e) =>{
-  //   setEmail(e.target.value)
-  // };
-  
+
   const handle_submit = async (e) =>{
     e.preventDefault(); // Prevent the default link navigation behavior
     if(!userData.username || !userData.email || !userData.password) {

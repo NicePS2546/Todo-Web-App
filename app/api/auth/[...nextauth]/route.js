@@ -1,13 +1,14 @@
 import NextAuth from "next-auth";
-import User from "@/model/user";
-import { connectTOmongoDB } from "@/lib/mongo_db";
+import { prisma } from "@/lib/db";
 import { compare } from "bcrypt";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextResponse } from "next/server";
+
 
 
 export const authOptions = {
-    session: {
+    //  adapter: PrismaAdapter(prisma),
+     session: {
       strategy:"jwt",
      },
     secret: process.env.NEXTAUTH_SECRET,
@@ -16,11 +17,14 @@ export const authOptions = {
           name: "credentials",
           credentials: {},
             async authorize(credentials, req){
-                const { name, password } = credentials
-                await connectTOmongoDB();
-                const user = await User.findOne({ name });
-                // const id = await User.findOne({ name }).select("_id")
-                console.log("user = ",user,"id = ",user.id)
+                const { username, password } = credentials
+               
+                const user = await prisma.users.findUnique({
+                  where: 
+                  { username }
+                })
+                
+                // console.log("user = ",user,"id = ",user.id); 
                 if(!user) throw new Error("Username or Password Doesn't match");
                 
                 const isValidPassword = await compare(password, user.password);
@@ -30,31 +34,29 @@ export const authOptions = {
                 };
                 if(!isValidPassword) throw new Error("Username or Password Doesn't match")
                 
-                return user && NextResponse.json({message: "Logged in"}, {status: 201});
+                return user
             },
         }),
     ],
     
-    // callbacks: {
-    //   async jwt(token, user) {
-    //     console.log("JWT callback - user:", user);
-    //     // if (user) {
-    //     //   token.id = user._id; // Use user._id instead of id
-    //     //   token.name = user.username;
-    //     // }
-    //     // return token;
-    //   },
-    
-    //   // async session(session, token) {
-    //   //   console.log("Session callback - token:", token);
-    //   //   if (token.id) {
-    //   //     session.user.id = token.id;
-    //   //     session.user.name = token.name;
-    //   //   }
-    //   //   return session;
-    //   // },
-    // },
-    
+    callbacks:{
+      async jwt({ token, user }) {
+        if(user) {
+          token.id = user.id;
+          token.username = user.username;
+        }
+        return token;
+      },
+      async session({ session, token }) {
+        if(session.user) {
+          session.user.id = token.id
+          session.user.username = token.username;
+        }
+        return session;
+      
+    },
+    }
+  
 };
 
 

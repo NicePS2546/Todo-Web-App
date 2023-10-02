@@ -2,26 +2,28 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import style from "@/styles/Nav.module.css";
-import { FaSearch } from "react-icons/fa";
 import Link from "next/link";
+import { Searchbar } from "./Searchbar";
 import { signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [getSignout, setGet] = useState(false);
   const handle_singout = () => {
-    
-     signOut();
-    if(signOut()){
-      setGet(true)
-    }else{
-      setGet(false)
-    }
-    
-    return getSignout;
+    signOut();
   }
-
-  // console.log(getSignout)
-  
+  const searchTodos = async (title) => {
+    try {
+      // setLoading(true);
+      const res = await fetch(`/api/search-data/${title}/route`);
+      const data = await res.json();
+      if(res.ok) console.log("data fecthed")
+      setSearchResults(data);
+    } catch (error) {
+      console.error('Error searching todos:', error);
+    // } finally {
+    //   setLoading(false);
+    }
+  };
   return (
     <>
       <nav className={style.navbar}>
@@ -39,18 +41,9 @@ export default function Navbar() {
             ></Image>
           </Link>
         </div>
-        <div className={style.searchcontainer}>
-          <form>
-            <input
-              type="text"
-              placeholder="Search ID"
-              className={style.searchbar}
-            />
-            <button className={style.search_btn}>
-              <FaSearch className={style.icon} />
-            </button>
-          </form>
-        </div>
+         {/* <div className={style.searchcontainer}>
+           <Searchbar onSearch={searchTodos} /> 
+        </div>  */}
         <div className={style.menu}>
             <ul>
               <li className={style.head_list}>

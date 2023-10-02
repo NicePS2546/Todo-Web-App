@@ -1,23 +1,37 @@
 import { NextResponse } from "next/server";
-import { connectTOmongoDB } from "@/lib/mongo_db";
-import User from "@/model/user";
+import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
 
 export async function POST(req){
     try{
-      await connectTOmongoDB(); //connect to mongoDB database
       const { username , email , password } = await req.json();
-      const user = await User.findOne({ email }).select("_id");
+      const existingUser = await prisma.users.findFirst({
+        where: {
+          OR: [
+            { username: {equals: username} },
+            { email: {equals: email},}
+          ]
+        }
+      })
 
-      if (user){
+      if (existingUser){
         return NextResponse.json({ message: "User already Exist" },{ status: 400 });
       }
-       const hashpassword = await bcrypt.hash(password, 10);
+      const bitround = 10
+       const hashPassword = await bcrypt.hash(password, bitround);
        console.log(username);
-        await User.create({ username, email, password: hashpassword})
+
+       const createdUser = await prisma.users.create({
+        data: {
+          username,
+          email,
+          password: hashPassword,
+        },
+      });
+    
         
-       return NextResponse.json({ message: "User registered." }, { status: 201 });
+       return NextResponse.json({ message: "User registered.", createdUser }, { status: 201 });
     }catch(error){
         return NextResponse.json({message: "Error occure while register an user",error},{status:500});
     }

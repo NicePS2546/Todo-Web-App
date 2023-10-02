@@ -9,11 +9,14 @@ export const metadata = {
   title: 'Login',
   description: 'Create by NICE',
 }
-
+const initialUserData = {
+  username: "",
+  password: "",
+}
 export default function Login_form() {
   
   const router = useRouter();
-  const [userdata,setUserdata] = useState("");
+  const [userdata,setUserdata] = useState(initialUserData);
   const [riseError, setError] = useState("");
   
   const handleChange = (e) =>{
