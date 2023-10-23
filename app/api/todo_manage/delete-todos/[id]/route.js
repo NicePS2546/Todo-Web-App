@@ -1,11 +1,11 @@
 import { prisma } from "@/lib/db"
 import { NextResponse } from "next/server"
 
-export const DELETE = async(req,id) =>{
+export const DELETE = async(req,{params}) =>{
     const delete_todo = await prisma.todos.delete({
         where:{
-            id
+            id:params.id
         }
     })
-    return NextResponse.json({message:"Deleted todo succesfully",delete_todo},{status:200})
+    return NextResponse.json({delete_todo,message:"Deleted todo succesfully"},{status:200})
 }

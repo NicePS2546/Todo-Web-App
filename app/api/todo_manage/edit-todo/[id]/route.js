@@ -1,12 +1,12 @@
 import { prisma } from "@/lib/db"
 import { NextResponse } from "next/server";
 
-export const PUT = async(req,id) =>{
+export const PUT = async(req,{params}) =>{
     const {title,description} = await req.json();
 
     const update_result = await prisma.todos.update({
         where:{
-            id
+            id:params.id
         },
         data:{
             title,description

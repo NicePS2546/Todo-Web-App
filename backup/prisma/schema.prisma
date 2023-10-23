@@ -17,6 +17,7 @@ model users {
   email      String    @unique
   password   String
   todos      Todos[]
+  
 }
 
 model Todos {

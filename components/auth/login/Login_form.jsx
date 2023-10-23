@@ -4,6 +4,10 @@ import style from '@/styles/login.module.css'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { CardHeader,Card, CardTitle, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export const metadata = {
   title: 'Login',
@@ -39,6 +43,7 @@ export default function Login_form() {
       if(res.status === 201){
         console.log("connect login")
         router.push("/");
+        router.refresh();
       }
 
       if(res?.error){
@@ -54,6 +59,7 @@ export default function Login_form() {
         }
         }else{
           router.push("/");
+          router.refresh();
       }
       
     }catch(error){
@@ -64,27 +70,33 @@ export default function Login_form() {
   
   return (
   <>
-    <div className={style.container}>
-      <label >Login</label>
-            <form onSubmit={handle_login_submit} className={style.form_login}>
-            <div>
-            <input type='text' id='username' value={userdata.email} onChange={handleChange} className={style.input_bar} placeholder={'Username'}/>
-            </div>
-            <div>
-            <input type='password' id='password' value={userdata.password} onChange={handleChange} className={style.input_bar} placeholder='Password'/>
-            </div>
-            <div className={style.alighment}>
-            <button type='submit' className={style.submit_btn}>Login</button>
-            <button type='button' className={style.submit_btn} onClick={register_redirect}>Register</button>
-            
-            {/* <button type='button' className={style.submit_btn} onClick={connectTOmongoDB}>Connect to Database</button> */}
-            </div>
-            {riseError &&(
-              <div className={style.Error_msg}>{riseError}</div>
-            )}
-            </form>
-            
-        </div>
+    <Card className="max-w-sm mx-auto my-20">
+      <CardHeader>
+        <CardTitle>Login</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handle_login_submit} className='flex flex-col space-y-2'> 
+          <Label htmlFor="Username">Username</Label>
+          <Input id="username" 
+          value={userdata.username}
+          className=""
+          onChange={handleChange}
+          placeholder="Username"
+          type="text"
+          />
+          <Label htmlFor="Password">Password</Label>
+          <Input 
+            id="password"
+            onChange={handleChange}
+            value={userdata.password}
+            className=''
+            placeholder="Password"
+            type="password"
+          />
+          <Button className=' shadow-md bg-green-500 hover:bg-green-700' type="submit">Login</Button>
+        </form>
+      </CardContent>
+    </Card>
         </> 
          )
 }

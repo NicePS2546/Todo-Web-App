@@ -1,20 +1,12 @@
+import { prisma } from "@/lib/db";
 import { connectTOmongoDB } from "@/lib/mongoDB";
+import { NextResponse } from "next/server";
 
-export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).end(); // Method Not Allowed
-  }
-
-  const { title } = req.query;
-
-  try {
-    const { db } = await connectToDatabase();
-    console.log(db)
-    const todos = await db.collection('todos').find({ title }).toArray();
-
-    res.status(200).json(todos);
-  } catch (error) {
-    console.error('Error searching todos:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+export const GET = async (req,{params}) => {
+  const get_search = await prisma.todos.findMany({
+    where:{
+      title: params.title
+    }
+  })
+  return NextResponse.json(get_search,{status:200})
 }

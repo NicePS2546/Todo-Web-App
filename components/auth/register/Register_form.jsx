@@ -4,6 +4,10 @@ import style from '@/styles/login.module.css';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { CardContent, CardHeader, CardTitle,Card } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 export const metadata = {
   title: 'Register',
   description: 'Create by NICE',
@@ -44,7 +48,8 @@ export default function() {
         setError("User Already Exists");
       };
       if(res.status === 201){
-        router.push("/")
+        router.push("/");
+        
       }else{
         const data = await res.json();
         console.log(data)
@@ -60,32 +65,50 @@ export default function() {
 
   return (
     <>
-    <div className={style.container}>
-      <label >Register</label>
-            <form onSubmit={handle_submit} className={style.form_login}>
-            <div>
-            <input type='text' id='username' onChange={handleChange} className={style.input_bar} placeholder='Username'/>
-            
-            </div>
-            <div>
-            <input type='password' id='password'  onChange={handleChange} className={style.input_bar} placeholder='Password'/>
-            </div>
-            <div>
-            <input type='email' id='email' onChange={handleChange} className={style.input_bar} placeholder='Email'/>
-            </div>
-            <button type='submit'className={style.submit_btn}>Register</button>
-            <label>Already have an Account <Link className={style.font} href={'/auth/login'}>Login</Link></label>
-            <div className={style.Error_container}>
+    <Card className="w-full mx-auto max-w-md my-24">
+      <CardHeader>
+        <CardTitle>Register</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handle_submit} className='flex flex-col space-y-3'>
+        <Label htmlFor="Username">Username</Label>
+        <Input id="username"
+        value={userData.username}
+        className=""
+        type="text"
+        placeholder="Username"
+        autocomplete="off"
+        onChange={handleChange}
+        />
+        <Label htmlFor="Email">Email</Label>
+        <Input id="email"
+        value={userData.email}
+        className=""
+        type="email"
+        placeholder="Email"
+        autocomplete="on"
+        onChange={handleChange}/>
+          <Label htmlFor="Password">Password</Label>
+          <Input id="password"
+        value={userData.password}
+        className=""
+        type="password"
+        placeholder="Password"
+        autocomplete="off"
+        onChange={handleChange}/>
+        <Button className="hover:bg-blue-700 hover:scale-105 transition-all duration-300 ease-in-out" type="submit">Register</Button>
+        </form>
+      </CardContent>
             {riseError &&(
               <div className={style.Error_msg}>{riseError}</div>
             )}
-            </div>
-
             
-            </form>
+            </Card>
+            
+            
             {/* <button type='submit' onClick={handle_click} className={style.submit_btn}>Register</button>
             <label>{name}</label> */}
-        </div>
+        
         </> 
   );
 }
