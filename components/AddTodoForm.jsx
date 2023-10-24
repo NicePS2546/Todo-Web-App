@@ -28,8 +28,8 @@ export const AddTodoForm = ({ userId }) => {
       setError("Please Enter All fields")
       return;
     };
-
-    const res = await fetch("/api/todo_manage/add-todo", {
+    
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/todo_manage/add-todo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...todoData, userId })

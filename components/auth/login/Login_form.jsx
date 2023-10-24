@@ -8,6 +8,9 @@ import { CardHeader,Card, CardTitle, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { Loader2 } from 'lucide-react';
+
 
 export const metadata = {
   title: 'Login',
@@ -22,55 +25,48 @@ export default function Login_form() {
   const router = useRouter();
   const [userdata,setUserdata] = useState(initialUserData);
   const [riseError, setError] = useState("");
-  
+  const [isLoading, setLoading] = useState("")
   const handleChange = (e) =>{
     const { id,value } = e.target
     setUserdata((prevData) => ({...prevData,[ id ]:value}))
   }
-  const register_redirect = () =>{
-    router.push("/auth/register");
-    
-  }
+  
+
   const handle_login_submit = async (e) =>{
     e.preventDefault();
-    setError("")
-    try{
-      const res = await signIn('credentials',{
+    
+    if(!userdata.username || !userdata.password){
+      setError("Please Enter Username and Password");
+      return;
+    }
+    
+    setLoading(true)
+    const res = await signIn('credentials',{
         ...userdata,
         redirect:false
       });
-      
-      if(res.status === 201){
-        console.log("connect login")
-        router.push("/");
-        router.refresh();
-      }
-
+      setLoading(false)
       if(res?.error){
-        setError(error);
-        console.log("something went wrong",res.error);
         switch(res?.error){
           case "Username or Password Doesn't match":
-            console.log("Username or Password Doesn't match");    
+            setError(res.error)  
             console.log(res.error);       
             break;
           default:
-            console.log(res.error);
+            console.log("something went wrong",res.error);
         }
         }else{
+          console.log("connect login")
           router.push("/");
           router.refresh();
       }
-      
-    }catch(error){
-      // console.log(error)
-    }
+    
   }
   
   
   return (
   <>
-    <Card className="max-w-sm mx-auto my-20">
+    <Card className="max-w-md mx-auto my-20">
       <CardHeader>
         <CardTitle>Login</CardTitle>
       </CardHeader>
@@ -93,9 +89,18 @@ export default function Login_form() {
             placeholder="Password"
             type="password"
           />
-          <Button className=' shadow-md bg-green-500 hover:bg-green-700' type="submit">Login</Button>
+          <Button variant="outline" className=' shadow-md bg-green-500 hover:bg-green-700 hover:scale-105 transition-all duration-300 ease-in-out' disabled={isLoading ? true : false} type="submit">{isLoading ? <Loader2 className="animate-spin"></Loader2> : "Login"}</Button>
+        
+        <div className='flex flex-col space-y-1.5'>
+        <p>Don't have an account ? <Link className=' text-purple-500 hover:text-purple-700' href={"/auth/register"}>Register</Link></p>
+        </div>
+        {riseError &&(
+          <div className='text-center flex'>
+        <Label className="bg-red-500 border-2 mx-auto  flex border-black shadow-md p-2 lg:px-2 py-3 pr-2 rounded-lg" htmlFor="Error">{riseError}</Label>
+        </div>)}
         </form>
       </CardContent>
+      
     </Card>
         </> 
          )

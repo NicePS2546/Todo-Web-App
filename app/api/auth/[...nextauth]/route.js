@@ -32,7 +32,7 @@ export const authOptions = {
                 if(user && isValidPassword){
                   console.log("Login Sucessfully");
                 };
-                if(!isValidPassword) throw new Error("Username or Password Doesn't match")
+                if(!isValidPassword) throw new Error("Username or Password Doesn't match");
                 
                 return user
             },

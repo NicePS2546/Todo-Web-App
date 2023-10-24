@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from "next/navigation";
-import { CheckIcon, Trash2, Settings } from "lucide-react";
+import { CheckIcon, Trash2, Settings, Undo } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { AlertDialog,AlertDialogContent, AlertDialogAction, AlertDialogCancel, AlertDialogFooter, AlertDialogTitle, AlertDialogTrigger, AlertDialogDescription } from "./ui/alert-dialog";
@@ -19,6 +19,7 @@ const initialTodoForm = {
 export const Card_UI = ({ todos }) => {
   const router = useRouter();
   const [todoform, setTodosForm] = useState(initialTodoForm);
+  const [riseError,setError] = useState("");
   const { toast } = useToast();
   const handleChange = (e) =>{
     const { id , value } = e.target;
@@ -52,6 +53,7 @@ export const Card_UI = ({ todos }) => {
     
   
   const handleEdit = async () => {
+    
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/todo_manage/edit-todo/${todos.id}`, {
       method: "PUT",
       headers:{"Content-Type":"application/json"},
@@ -70,6 +72,16 @@ export const Card_UI = ({ todos }) => {
 
     
   };
+  const handleUndo = async() =>{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/todo_manage/uncomplete-todo/${todos.id}`,{method:"PUT"})
+    if(res.ok){
+      router.refresh();
+      toast({
+        title:"Undo todo",
+        description:`Undo todo ${todos.title} successfully`
+      })
+    }
+  }
 const handleDelete = async () =>{
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/todo_manage/delete-todos/${todos.id}`,{
         method:"DELETE"
@@ -104,6 +116,7 @@ const handleDelete = async () =>{
             </AlertDialogFooter>
           </AlertDialogContent>
           </AlertDialog>
+          
             <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button className=" bg-blue-500 hover:bg-blue-700 transition-all hover:scale-125 duration-500 ease-in-out" variant="outline"><Settings/></Button>
@@ -138,15 +151,31 @@ const handleDelete = async () =>{
             </AlertDialogTrigger>
            <AlertDialogContent>
             <AlertDialogTitle>
-              Are you sure you want to delete todo name {todos.title}
+              Are you sure you want to delete todo name {todos.title} ?
             </AlertDialogTitle>
-            <AlertDialogDescription>This will permanently delete your Todo</AlertDialogDescription>
+            <AlertDialogDescription>This will permanently delete your Todo!</AlertDialogDescription>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction className="bg-red-500 hover:bg-red-700 " onClick={handleDelete}>Yes</AlertDialogAction>
             </AlertDialogFooter>
            </AlertDialogContent>
           </AlertDialog>
+        {todos.isCompleted &&(
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button className="bg-yellow-500 hover:bg-yellow-700 transition-all hover:scale-125 duration-500 ease-in-out" variant="outline"><Undo /></Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogTitle>Are you sure you want to undo todo {todos.title} ?</AlertDialogTitle>
+              <AlertDialogDescription>This will put todo {todos.title} back to icomplete task ! </AlertDialogDescription>
+              <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleUndo}>Yes</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
+          
       </CardFooter>
     </Card>
     

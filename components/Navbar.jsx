@@ -8,7 +8,9 @@ import {  useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "./ui/navigation-menu";
 import { LogOut } from "lucide-react";
-import { Label } from "./ui/label";
+import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog"
+import { Label } from "./ui/label"
+import { Input } from "./ui/input"
 
 import { DropProfile } from "./DropDownProfile";
 
@@ -55,7 +57,7 @@ export default function Navbar() {
            <Searchbar onSearch={searchTodos} /> 
         </div>  */}
         {session&&(
-         <DropProfile username={session.user.username}/> 
+         <DropProfile user={session.user}/> 
         )}
         
         {/* <NavigationMenu className="list-none">
