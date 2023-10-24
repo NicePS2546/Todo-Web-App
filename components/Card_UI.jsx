@@ -9,7 +9,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
-import { Toaster } from "./ui/toaster";
+
 
 const initialTodoForm = {
   title: "",
@@ -116,7 +116,7 @@ const handleDelete = async () =>{
             </AlertDialogFooter>
           </AlertDialogContent>
           </AlertDialog>
-          
+
             <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button className=" bg-blue-500 hover:bg-blue-700 transition-all hover:scale-125 duration-500 ease-in-out" variant="outline"><Settings/></Button>

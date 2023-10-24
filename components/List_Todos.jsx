@@ -1,5 +1,5 @@
 import { Card_UI } from './Card_UI';
-import React from 'react'
+
 
     const get_todoCompleted = async (userId) =>{
         const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/todo_manage/get-todo-completed/${userId}`,{cache:'no-store'})

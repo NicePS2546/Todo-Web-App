@@ -1,4 +1,3 @@
-import React from 'react'
 import Register_form from '@/components/auth/register/Register_form'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'

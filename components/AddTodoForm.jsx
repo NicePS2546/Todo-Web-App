@@ -1,6 +1,5 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
