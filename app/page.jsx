@@ -8,12 +8,17 @@ import { List_Todos } from "@/components/List_Todos";
 
 
 
+
+
 export default async function HomePage() {
   const session = await getServerSession(authOptions);
+  
   // console.log(session)
   if(!session || !session.user){
     redirect("/auth/login");
   };
+  
+  
   // if(session){
   //   console.log(session.user.id)
   //   console.log(session)

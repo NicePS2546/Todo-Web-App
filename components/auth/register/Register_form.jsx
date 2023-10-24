@@ -66,7 +66,7 @@ export default function () {
 
   const handle_submit = async (e) => {
     e.preventDefault(); // Prevent the default link navigation behavior
-    setLoading(true)
+    
   if(userData.username){
     const containRestricted = /\W/.test(userData.username);
 
@@ -126,6 +126,7 @@ export default function () {
     // }
   
       try {
+        setLoading(true)
         const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth/register`, {
           method: "POST",
           headers: {

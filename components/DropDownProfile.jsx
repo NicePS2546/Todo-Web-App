@@ -48,23 +48,23 @@ export const DropProfile = ({user}) =>{
             router.refresh();
         }
 
-        // if(res?.error){
-        //     switch(res?.error){
-        //       case "Incorrect Password!":
-        //         toast({
-        //             title:"Incorrect Password!",
-        //             description:"Please enter correct password!"
-        //         }) 
-        //         console.log(res.error);       
-        //         break;
-        //       default:
-        //         null
-        //     }
-        //     }else{
-        //       console.log("Changed Username")
-        //       router.push("/");
-        //       router.refresh();
-        //   }
+        if(res?.error){
+            switch(res?.error){
+              case "Incorrect Password!":
+                toast({
+                    title:"Incorrect Password!",
+                    description:"Please enter correct password!"
+                }) 
+                console.log(res.error);       
+                break;
+              default:
+                null
+            }
+            }else{
+              console.log("Changed Username")
+              router.push("/");
+              router.refresh();
+          }
         
     }catch(error){
         toast({
@@ -73,6 +73,7 @@ export const DropProfile = ({user}) =>{
             }) 
     }
     }
+    
 
     const handle_singout = () => {
         signOut();

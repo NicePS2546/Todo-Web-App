@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import style from "@/styles/Nav.module.css";
 import Link from "next/link";
@@ -17,9 +17,7 @@ import { DropProfile } from "./DropDownProfile";
 export default function Navbar() {
   const {data:session, status} = useSession();
   const [getSignout, setGet] = useState(false);
-  if(session){
-    console.log(session.user.username)
-  }
+  
   
   // const searchTodos = async (title) => {
   //   try {

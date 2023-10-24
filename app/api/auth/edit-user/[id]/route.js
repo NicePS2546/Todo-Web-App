@@ -27,6 +27,6 @@ export const PUT = async (req,{params}) =>{
             username: username
         }
     })
-
+    
     return NextResponse.json(editUser,{status:200})
 }
