@@ -1,6 +1,4 @@
 'use client';
-import React from 'react'
-import style from '@/styles/login.module.css'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -46,6 +44,7 @@ export default function Login_form() {
         ...userdata,
         redirect:false
       });
+
       setLoading(false)
       if(res?.error){
         switch(res?.error){

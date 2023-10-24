@@ -7,14 +7,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 
 export const authOptions = {
-    //  adapter: PrismaAdapter(prisma),
      session: {
       strategy:"jwt",
      },
     secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
-          name: "credentials",
+          name: "Credentials",
           credentials: {},
             async authorize(credentials, req){
                 const { username, password } = credentials

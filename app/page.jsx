@@ -14,11 +14,8 @@ export default async function HomePage() {
     redirect("/auth/login");
   };
   
-  
-  
   return (
     <>
-    {!session &&(<div>something wrong</div>)}
    <AddTodoForm userId = {session.user.id}/>
    <List_Todos userId={session.user.id}/>
    
