@@ -20,7 +20,7 @@ export const authOptions = {
                
                 const user = await prisma.users.findUnique({
                   where: 
-                  { username }
+                  { username: username.toLowerCase() }
                 })
                 
                 // console.log("user = ",user,"id = ",user.id); 
