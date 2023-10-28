@@ -109,7 +109,7 @@ const handleDelete = async () =>{
               <Button className="bg-green-500 hover:bg-green-700 transition-all hover:scale-125 duration-500 ease-in-out" variant="outline"><CheckIcon/></Button>
             </AlertDialogTrigger>
           <AlertDialogContent>
-            <AlertDialogTitle>Are You completed your task?</AlertDialogTitle>
+            <AlertDialogTitle>Are you completed your task?</AlertDialogTitle>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancle</AlertDialogCancel>
               <AlertDialogAction onClick={handleCompleted}>Yes</AlertDialogAction>
@@ -167,7 +167,7 @@ const handleDelete = async () =>{
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogTitle>Are you sure you want to undo todo {todos.title} ?</AlertDialogTitle>
-              <AlertDialogDescription>This will put todo {todos.title} back to icomplete task ! </AlertDialogDescription>
+              <AlertDialogDescription>This will put todo {todos.title} back to incomplete task ! </AlertDialogDescription>
               <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction onClick={handleUndo}>Yes</AlertDialogAction>
