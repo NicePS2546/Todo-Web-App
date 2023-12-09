@@ -1,7 +1,7 @@
 'use client';
 import { DropdownMenuContent,DropdownMenu, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Button } from "./ui/button"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import { UserCircle2 } from "lucide-react"
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog"
 import { Label } from "./ui/label"
@@ -18,6 +18,11 @@ const initialUserData ={
 export const DropProfile = ({user}) =>{
 
     const [userData,setuserData] = useState(initialUserData)
+    const {data:session} = useSession();
+    // const { update } = useSession();
+
+    
+    
     const router = useRouter();
     const { toast } = useToast();
     const handleChange = (e) =>{
@@ -44,6 +49,7 @@ export const DropProfile = ({user}) =>{
                 title:"Changed Username!",
                 description: `Change username from ${user.username} to ${data.username} Successfully`
             })
+            
             router.push("/");
             router.refresh();
         }
@@ -73,7 +79,7 @@ export const DropProfile = ({user}) =>{
             }) 
     }
     }
-    
+   
 
     const handle_singout = () => {
         signOut();
@@ -81,7 +87,7 @@ export const DropProfile = ({user}) =>{
     return(
    <>
    <div className="flex justify-between gap-3">
-    
+    {/* <Button onClick={() =>{update((prev) => ({...prev, username: userData.username})); console.log(session); }}>Update</Button> */}
         <Dialog>
             <DialogTrigger className="bg-white  mx-auto  flex  shadow-md p-2 lg:px-2 py-2 pr-2 rounded-lg transition-all hover:scale-105 duration-500 ease-in-out">Edit Username</DialogTrigger>
             <DialogContent>

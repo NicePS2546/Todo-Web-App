@@ -35,7 +35,7 @@ export const AddTodoForm = ({ userId }) => {
     });
     // console.log(todoData)
     const data = await res.json();
-    console.log(data)
+    
     if(res.status === 500){
       console.log("Error")
     }

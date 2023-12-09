@@ -6,9 +6,11 @@ import Link from "next/link";
 import {  useSession } from "next-auth/react";
 import { DropProfile } from "./DropDownProfile";
 
+
 export default function Navbar() {
+  // const getSession = getServerSession(authOptions);
   const {data:session, status} = useSession();
-  
+  // console.log(getSession);
   
   
   // const searchTodos = async (title) => {

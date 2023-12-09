@@ -56,7 +56,7 @@ export default function Login_form() {
             console.log("something went wrong",res.error);
         }
         }else{
-          console.log("connect login")
+          
           router.push("/");
           router.refresh();
       }

@@ -12,7 +12,7 @@ import { Card_UI } from './Card_UI';
     
 export const List_Todos = async ({userId}) => {
     const [inCompletedTodo, completedTodo] = await Promise.all([get_todoIncomplete(userId), get_todoCompleted(userId)]);
-    // console.log(inCompletedTodo)
+    
     
     return (
    <>
